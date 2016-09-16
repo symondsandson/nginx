@@ -23,5 +23,5 @@ include_recipe 'ohai'
 
 ohai_plugin 'nginx' do
   source_file 'plugins/nginx.rb.erb'
-  resource 'template'
+  resource :template
 end
