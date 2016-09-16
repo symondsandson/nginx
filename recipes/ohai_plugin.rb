@@ -25,3 +25,8 @@ ohai_plugin 'nginx' do
   source_file 'plugins/nginx.rb.erb'
   resource :template
 end
+
+ohai 'reload_nginx' do
+  plugin 'nginx'
+  action :nothing
+end
