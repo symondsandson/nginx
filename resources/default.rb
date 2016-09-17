@@ -18,8 +18,8 @@ action :enable do
     not_if { new_resource.source.nil? }
   end
 
-  execute "nxensite #{name}" do
-    command "#{node['nginx']['script_dir']}/nxensite #{name}"
+  execute "nxensite #{new_resource.name}" do
+    command "#{node['nginx']['script_dir']}/nxensite #{new_resource.name}"
     notifies :reload, 'service[nginx]', new_resource.timing
     not_if do
       ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{name}") ||
