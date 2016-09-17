@@ -11,6 +11,8 @@ action :enable do
   include_recipe 'nginx'
 
   template "#{node['nginx']['dir']}/sites-available/#{name}" do
+    owner node['nginx']['user']
+    group node['nginx']['user']
     source new_resource.source
     variables new_resource.variables
     not_if { new_resource.source.nil? }
