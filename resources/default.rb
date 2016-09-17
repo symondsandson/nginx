@@ -8,8 +8,6 @@ property :timing, kind_of: Symbol, default: :delayed
 property :variables, kind_of: Hash, default: {}
 
 action :enable do
-  include_recipe 'nginx'
-
   template "#{node['nginx']['dir']}/sites-available/#{name}" do
     owner node['nginx']['user']
     group node['nginx']['user']
@@ -29,8 +27,6 @@ action :enable do
 end
 
 action :disable do
-  include_recipe 'nginx'
-
   execute "nxdissite #{name}" do
     command "#{node['nginx']['script_dir']}/nxdissite #{name}"
     notifies :reload, 'service[nginx]', new_resource.timing

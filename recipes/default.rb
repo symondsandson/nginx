@@ -21,6 +21,8 @@
 
 include_recipe "nginx::#{node['nginx']['install_method']}"
 
+include_recipe 'nginx::service'
+
 node['nginx']['default']['modules'].each do |ngx_module|
   include_recipe "nginx::#{ngx_module}"
 end
