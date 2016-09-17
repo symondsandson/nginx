@@ -3,8 +3,8 @@ resource_name :nginx_site
 default_action :enable
 
 property :name, kind_of: String, name_attribute: true
-property :template, kind_of: String
-property :timing, kind_of: String, default: :delayed
+property :template, kind_of: String, default: nil
+property :timing, kind_of: Symbol, default: :delayed
 property :variables, kind_of: Hash, default: {}
 
 action :enable do
@@ -13,7 +13,7 @@ action :enable do
   template "#{node['nginx']['dir']}/sites-available/#{name}" do
     source new_resource.template
     variables new_resource.variables
-    only_if { new_resource.template }
+    not_if { new_resource.template.nil? }
   end
 
   execute "nxensite #{name}" do
