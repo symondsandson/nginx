@@ -6,7 +6,7 @@ when 'systemd'
     source 'nginx.service.erb'
     owner  'root'
     group  node['root_group']
-    mode   '0755'
+    mode   '0644'
   end
 
   service 'nginx' do
