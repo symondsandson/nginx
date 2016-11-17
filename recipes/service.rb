@@ -1,6 +1,18 @@
 # Set up the nginx service for this init style
 
 case node['nginx']['init_style']
+when 'systemd'
+  template '/etc/systemd/system/supervisor.service' do
+    source 'supervisor.service.erb'
+    owner  'root'
+    group  node['root_group']
+    mode   '0755'
+  end
+
+  service 'nginx' do
+    supports status: true, restart: true, reload: true
+    action [:enable, :start]
+  end
 when 'runit'
   node.set['nginx']['src_binary'] = node['nginx']['binary']
   include_recipe 'runit::default'
