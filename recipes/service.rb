@@ -2,8 +2,8 @@
 
 case node['nginx']['init_style']
 when 'systemd'
-  template '/etc/systemd/system/supervisor.service' do
-    source 'supervisor.service.erb'
+  template '/etc/systemd/system/nginx.service' do
+    source 'nginx.service.erb'
     owner  'root'
     group  node['root_group']
     mode   '0755'
