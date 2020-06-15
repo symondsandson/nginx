@@ -1,16 +1,16 @@
 [Unit]
 Description=A high performance web server and a reverse proxy server
-After=network.target
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
 
 [Service]
-Type=forking
+Type=exec
 PIDFile=<%= node['nginx']['pid'] %>
 ExecStartPre=<%= node['nginx']['binary'] %> -t
 ExecStart=<%= node['nginx']['binary'] %>
 ExecReload=<%= node['nginx']['binary'] %> -s reload
-ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile <%= node['nginx']['pid'] %>
-TimeoutStopSec=5
-KillMode=mixed
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
