@@ -27,7 +27,7 @@ action :enable do
 end
 
 action :disable do
-  execute "nxdissite #{name}" do
+  execute "nxdissite #{new_resource.name}" do
     command "#{node['nginx']['script_dir']}/nxdissite #{new_resource.name}"
     notifies :reload, 'service[nginx]', new_resource.timing
     only_if do
