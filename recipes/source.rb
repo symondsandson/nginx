@@ -39,7 +39,6 @@ unless node['nginx']['source']['use_existing_user']
   end
 end
 
-include_recipe 'nginx::ohai_plugin'
 include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
 include_recipe 'build-essential::default'
@@ -113,7 +112,6 @@ bash 'compile_nginx_source' do
   end
 
   notifies :restart, 'service[nginx]'
-  notifies :reload,  'ohai[reload_nginx]', :immediately
 end
 
 include_recipe 'nginx::service'
