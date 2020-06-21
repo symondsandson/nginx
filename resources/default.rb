@@ -1,4 +1,4 @@
-resource_name :nginx_site
+provides :nginx_site
 
 default_action :enable
 
